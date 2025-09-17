@@ -11,7 +11,50 @@ const {
 const { generateToken, verifyToken } = require("../middleware/jwt.js");
 
 const normalizeEmail = (e) => (e || "").trim().toLowerCase();
-
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Authenticates a user and returns a JWT token.
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "user@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "yourPassword123"
+ *     responses:
+ *       200:
+ *         description: Successful login, returns JWT token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       400:
+ *         description: Incorrect format user.
+ *       404:
+ *         description: User not found.
+ *       401:
+ *         description: Invalid credentials.
+ *       500:
+ *         description: Internal error.
+ */
 userRouter.post("/login", async (req, res) => {
     try {
         const email = normalizeEmail(req.body.email);
@@ -36,6 +79,64 @@ userRouter.post("/login", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /users/register:
+ *   post:
+ *     summary: Registers a new user and returns a JWT token.
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstname
+ *               - lastname
+ *               - email
+ *               - password
+ *               - age
+ *               - telephone
+ *             properties:
+ *               firstname:
+ *                 type: string
+ *                 example: "John"
+ *               lastname:
+ *                 type: string
+ *                 example: "Doe"
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "john.doe@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "yourPassword123"
+ *               age:
+ *                 type: integer
+ *                 example: 30
+ *               telephone:
+ *                 type: string
+ *                 example: "+1234567890"
+ *     responses:
+ *       201:
+ *         description: User registered successfully, returns JWT token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       400:
+ *         description: Incorrect format user / incorrect mail format / incorrect password format / incorrect telephone format / incorrect age format.
+ *       409:
+ *         description: User already exists.
+ *       500:
+ *         description: Internal error.
+ */
 userRouter.post("/register", async (req, res) => {
     try {
         const currentUser = {
@@ -77,6 +178,48 @@ userRouter.post("/register", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /users/getAll:
+ *   get:
+ *     summary: Retrieve all users (protected route).
+ *     tags:
+ *       - User
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of users.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                   firstname:
+ *                     type: string
+ *                   lastname:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   age:
+ *                     type: integer
+ *                   telephone:
+ *                     type: string
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                   updatedAt:
+ *                     type: string
+ *                     format: date-time
+ *       401:
+ *         description: Unauthorized (missing or invalid token).
+ *       500:
+ *         description: Error retrieving users.
+ */
 userRouter.get("/getAll", verifyToken, async (req, res) => {
     console.log("User from token =", req.user);
     try {
