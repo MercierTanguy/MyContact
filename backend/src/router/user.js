@@ -77,7 +77,8 @@ userRouter.post("/register", async (req, res) => {
     }
 });
 
-userRouter.get("/getAll", verifyToken, async (_req, res) => {
+userRouter.get("/getAll", verifyToken, async (req, res) => {
+    console.log("User from token =", req.user);
     try {
         const users = await utilisateurModel
             .find({}, { password: 0 })

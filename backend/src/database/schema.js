@@ -5,7 +5,7 @@ const utilisateurSchema = new mongoose.Schema({
     lastname: { type: String, required: true, trim: true },
     age: { type: Number, required: true },
     email: {
-        type: String, required: true, minLength: 6, maxLength: 30, trim: true, match: /[a-zA-Z0-9._\-]{1,30}[@][a-zA-Z0-9._\-]{4,12}[.]{1}[a-zA-Z]{2,4}/gm
+        type: String, unique: true, required: true, minLength: 6, maxLength: 30, trim: true, match: /[a-zA-Z0-9._\-]{1,30}[@][a-zA-Z0-9._\-]{4,12}[.]{1}[a-zA-Z]{2,4}/gm
     },
     password: { type: String, required: true, trim: true },
     telephone: {
