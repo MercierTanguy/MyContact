@@ -26,14 +26,11 @@ export default function Register() {
 
     try {
       const response = await axios.post("http://localhost:5000/users/register", form);
-      console.log("✅ Utilisateur inscrit :", response.data);
-
       setSuccess("Inscription réussie !");
       localStorage.setItem("token", response.data.token);
       window.location.href = "/";
     } catch (err: any) {
       console.error("Erreur lors de l'inscription :", err);
-
       if (err.response?.data?.message) {
         setError(err.response.data.message);
       } else {

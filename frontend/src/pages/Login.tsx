@@ -16,8 +16,6 @@ export default function Login() {
         email,
         password,
       });
-
-      console.log("✅ Utilisateur connecté :", response.data);
       localStorage.setItem("token", response.data.token);
       window.location.href = "/";
     } catch (err: any) {
