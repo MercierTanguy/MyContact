@@ -29,15 +29,14 @@ const isValidTel = (tel) => {
 }
 
 const isValidPosInt = (num) => {
-    if (typeof num == "number") {
-        return num > 0 && Number.isInteger(num)
+    if (typeof num === "number") {
+        return num > 0 && Number.isInteger(num);
     }
-    if (typeof num == "string") {
-        return /^\+?[1-9]\d*$/.test(age)
+    if (typeof num === "string") {
+        return /^\+?[1-9]\d*$/.test(num);
     }
-    return false
-}
-
+    return false;
+};
 const isValidDataObject = (object) => {
     return Object.values(object).every(
         item => {

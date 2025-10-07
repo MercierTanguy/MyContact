@@ -22,7 +22,7 @@ const contactSchema = new mongoose.Schema({
     telephone: {
         type: String, required: true, minLength: 10, maxLength: 10, match: /^0[1-9]\d{8}$/, trim: true
     },
-    creatorId: { type: mongoose.Schema.Types.ObjectId, ref: "Utilisateur", required: true },
+    creatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Utilisateur', required: true },
 }, { versionKey: false });
 
 module.exports = { utilisateurSchema, contactSchema };

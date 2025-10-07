@@ -69,7 +69,7 @@ userRouter.post("/login", async (req, res) => {
         if (!user) return res.status(404).json({ message: "user not found" });
 
         const ok = await bcrypt.compare(plainPassword, user.password);
-        if (!ok) return res.status(401).json({ message: "invalid credentials" });
+        if (!ok) return res.status(401).json({ message: "invalid password" });
 
         const token = generateToken(user);
         return res.json({ token });
@@ -221,7 +221,6 @@ userRouter.post("/register", async (req, res) => {
  *         description: Error retrieving users.
  */
 userRouter.get("/getAll", verifyToken, async (req, res) => {
-    console.log("User from token =", req.user);
     try {
         const users = await utilisateurModel
             .find({}, { password: 0 })

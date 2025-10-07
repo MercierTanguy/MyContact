@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpecs = require("./swagger.js");
 const { userRouter } = require("./src/router/user");
+const { contactRouter } = require("./src/router/contact");
 dotenv.config();
 
 const app = express();
@@ -18,6 +19,8 @@ app.get("/", (req, res) => {
     res.send("Good");
 });
 app.use('/users', userRouter);
+
+app.use('/contact', contactRouter);
 
 app.use((req, res, next) => {
     return res.status(404).send({ "message": "page not found" })

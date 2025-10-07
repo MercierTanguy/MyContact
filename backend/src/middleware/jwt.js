@@ -25,7 +25,16 @@ const verifyToken = (req, res, next) => {
     }
 };
 
+const decodeToken = (token) => {
+    try {
+        return jwt.verify(token, jwt_secret);
+    } catch (err) {
+        return null;
+    }
+};
+
 module.exports = {
     generateToken,
-    verifyToken
+    verifyToken,
+    decodeToken
 }
