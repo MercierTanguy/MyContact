@@ -8,7 +8,7 @@ const {
     isValidDataObject,
     isValidPosInt,
 } = require("../controller/check.js");
-const { generateToken, verifyToken } = require("../middleware/jwt.js");
+const { generateToken } = require("../middleware/jwt.js");
 
 const normalizeEmail = (e) => (e || "").trim().toLowerCase();
 /**
@@ -140,58 +140,6 @@ userRouter.post("/register", async (req, res) => {
     }
 });
 
-/**
- * @swagger
- * /users/getAll:
- *   get:
- *     summary: Retrieve all users (protected route).
- *     tags:
- *       - User
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: List of users.
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   _id:
- *                     type: string
- *                   firstname:
- *                     type: string
- *                   lastname:
- *                     type: string
- *                   email:
- *                     type: string
- *                   age:
- *                     type: integer
- *                   telephone:
- *                     type: string
- *                   createdAt:
- *                     type: string
- *                     format: date-time
- *                   updatedAt:
- *                     type: string
- *                     format: date-time
- *       401:
- *         description: Unauthorized (missing or invalid token).
- *       500:
- *         description: Error retrieving users.
- */
-userRouter.get("/getAll", verifyToken, async (req, res) => {
-    try {
-        const users = await utilisateurModel
-            .find({}, { password: 0 })
-            .sort({ createdAt: -1 });
-        return res.json(users);
-    } catch (err) {
-        console.error("getAll error:", err);
-        return res.status(500).json({ message: "Error retrieving users" });
-    }
-});
+
 
 module.exports = { userRouter };
