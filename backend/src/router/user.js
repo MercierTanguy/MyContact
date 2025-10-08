@@ -15,39 +15,24 @@ const normalizeEmail = (e) => (e || "").trim().toLowerCase();
  * @swagger
  * /users/login:
  *   post:
- *     summary: Authenticates a user and returns a JWT token.
- *     tags:
- *       - User
+ *     summary: User login, returns JWT token.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - email
- *               - password
  *             properties:
  *               email:
  *                 type: string
- *                 format: email
- *                 example: "user@example.com"
  *               password:
  *                 type: string
- *                 example: "yourPassword123"
  *     responses:
  *       200:
- *         description: Successful login, returns JWT token.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *         description: JWT token.
  *       400:
- *         description: Incorrect format user.
+ *         description: Bad request.
  *       404:
  *         description: User not found.
  *       401:
@@ -83,55 +68,32 @@ userRouter.post("/login", async (req, res) => {
  * @swagger
  * /users/register:
  *   post:
- *     summary: Registers a new user and returns a JWT token.
- *     tags:
- *       - User
+ *     summary: Register a new user.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - firstname
- *               - lastname
- *               - email
- *               - password
- *               - age
- *               - telephone
  *             properties:
  *               firstname:
  *                 type: string
- *                 example: "John"
  *               lastname:
  *                 type: string
- *                 example: "Doe"
  *               email:
  *                 type: string
- *                 format: email
- *                 example: "john.doe@example.com"
  *               password:
  *                 type: string
- *                 example: "yourPassword123"
  *               age:
  *                 type: integer
- *                 example: 30
  *               telephone:
  *                 type: string
- *                 example: "+1234567890"
  *     responses:
  *       201:
- *         description: User registered successfully, returns JWT token.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *         description: User registered, returns JWT token.
  *       400:
- *         description: Incorrect format user / incorrect mail format / incorrect password format / incorrect telephone format / incorrect age format.
+ *         description: Bad request.
  *       409:
  *         description: User already exists.
  *       500:
