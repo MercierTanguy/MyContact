@@ -25,7 +25,7 @@ export default function Register() {
     setSuccess(null);
 
     try {
-      const response = await axios.post("http://localhost:5000/users/register", form);
+      const response = await axios.post("https://mycontact-t1is.onrender.com/users/register", form);
       setSuccess("Inscription réussie !");
       localStorage.setItem("token", response.data.token);
       window.location.href = "/";

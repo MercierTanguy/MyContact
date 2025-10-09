@@ -26,7 +26,7 @@ export default function Contact() {
 
   const fetchContacts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/contact/liste", {
+      const res = await axios.get("https://mycontact-t1is.onrender.com/contact/liste", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setContacts(res.data.contacts);
@@ -47,7 +47,7 @@ export default function Contact() {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/contact/create", form, {
+      await axios.post("https://mycontact-t1is.onrender.com/contact/create", form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setForm({ firstname: "", lastname: "", telephone: "", email: "" });
@@ -60,7 +60,7 @@ export default function Contact() {
   const handleDelete = async (id: string) => {
     if (!window.confirm("Supprimer ce contact ?")) return;
     try {
-      await axios.delete(`http://localhost:5000/contact/${id}`, {
+      await axios.delete(`https://mycontact-t1is.onrender.com/contact/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchContacts();
@@ -73,7 +73,7 @@ export default function Contact() {
     e.preventDefault();
     if (!editingContact) return;
     try {
-      await axios.patch(`http://localhost:5000/contact/${editingContact._id}`,
+      await axios.patch(`https://mycontact-t1is.onrender.com/contact/${editingContact._id}`,
         editingContact,
         { headers: { Authorization: `Bearer ${token}` } }
       );
