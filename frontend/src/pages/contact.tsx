@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "./Contact.css";
+import "./contact.css";
 
 interface Contact {
   _id: string;
