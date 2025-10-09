@@ -1,0 +1,56 @@
+# MyContact Backend
+
+Ce projet est le backend de l'application MyContact. Il permet de gérer les contacts via une API.
+
+## Prérequis
+
+- Node.js (>= 14)
+- npm ou yarn
+- MongoDB
+
+## Installation
+
+1. Clonez le dépôt :
+    ```
+    git clone https://github.com/MercierTanguy/MyContact
+    ```
+2. Installez les dépendances :
+    ```
+    # Pour le backend :
+    cd backend
+    npm install
+
+    # Pour le frontend :
+    cd ../frontend
+    npm install
+    ```
+3. Configurez les variables d'environnement dans un fichier `.env`.
+
+## Démarrage
+Pour démarrer le projet, lancez les serveurs du backend et du frontend dans deux terminaux séparés :
+
+```bash
+# Démarrer le backend
+cd backend
+npm run dev
+
+# Démarrer le frontend
+cd ../frontend
+npm run dev
+```
+
+## Endpoints API
+
+Voici les principaux endpoints disponibles dans l'API :
+
+| Méthode | Endpoint           | Description                       |
+|---------|--------------------|-----------------------------------|
+| POST    | `/auth/login`      | Authentifie un utilisateur        |
+| POST    | `/auth/register`   | Inscrit un nouvel utilisateur     |
+| GET     | `/contact`         | Récupère la liste des contacts    |
+| GET     | `/contact/:id`     | Récupère un contact par son ID    |
+| POST    | `/contact`         | Crée un nouveau contact           |
+| PUT     | `/contact/:id`     | Met à jour un contact existant    |
+| DELETE  | `/contact/:id`     | Supprime un contact               |
+
+Toutes les requêtes doivent être envoyées en JSON.
